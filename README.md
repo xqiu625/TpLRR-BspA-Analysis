@@ -1,6 +1,6 @@
 # TpLRR-BspA-Analysis
 
-A computational toolkit for identifying and analyzing different classes of leucine-rich repeat (LRR) proteins in the UniRef50 database, with a focus on the TpLRR/BspA-like class.
+A computational toolkit for identifying and analyzing different classes of leucine-rich repeat (LRR) proteins in the UniRef50 database, with a focus on the TpLRR/BspA-like class.  https://www.sciencedirect.com/science/article/pii/S1047847723000746 
 
 ## Overview
 
