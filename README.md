@@ -26,8 +26,8 @@ This repository contains tools for analyzing LRR protein patterns using regular 
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/TpLRR-Pattern-Finder.git
-cd TpLRR-Pattern-Finder
+git clone https://github.com/xqiu625/TpLRR-Pattern-Finder.git
+cd TpLRR-BspA-Analysis
 
 # Create a conda environment (recommended)
 conda create -n lrr_finder python=3.9
