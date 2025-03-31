@@ -1,40 +1,37 @@
-# TpLRR/BspA-like LRR Proteins Analysis
+# TpLRR-Pattern-Finder
 
-This repository contains the code and data associated with the paper:
-
-> Takkouche A, Qiu X, Sedova M, Jaroszewski L, Godzik A. (2023). Unusual structural and functional features of TpLRR/BspA-like LRR proteins. *Journal of Structural Biology*, 215, 108011. https://doi.org/10.1016/j.jsb.2023.108011
+A computational toolkit for identifying and analyzing different classes of leucine-rich repeat (LRR) proteins in the UniRef50 database, with a focus on the TpLRR/BspA-like class.
 
 ## Overview
 
-This code repository provides tools and analysis scripts for studying the structural and functional features of proteins from the TpLRR/BspA-like class of leucine-rich repeat (LRR) proteins. These proteins exhibit unusual structural features compared to other LRR classes, including a flipped curvature with the beta sheet on the convex side and irregular secondary structure on the concave side.
+This repository contains tools for analyzing LRR protein patterns using regular expression matching across the UniRef50 database. The analysis focuses on identifying eight different classes of LRR proteins:
 
-## Contents
+1. TpLRR (21 AA)
+2. RI-like (28 AA)
+3. SDS22-like (22 AA)
+4. Cysteine-containing (22 AA)
+5. Bacterial (20 AA)
+6. Typical LRR
+7. Plant-specific (22 AA)
+8. BspA-like
 
-- `structural_analysis/` - Scripts for analyzing PDB structures of TpLRR proteins
-- `sequence_analysis/` - Scripts for sequence pattern analysis and identification of TpLRR proteins
-- `domain_analysis/` - Code for domain distribution statistics
-- `data/` - Supporting data files
-- `results/` - Output files and results
-- `supplementary/` - Supplementary materials referenced in the paper
+## Features
 
-## Dependencies
-
-- Python 3.7+
-- BioPython
-- PyMOL (for visualization)
-- FATCAT and POSA (for structural alignments)
-- Regular expression libraries
+- Regular expression pattern matching for different LRR classes
+- Processing of large protein databases (UniRef50)
+- Cloud storage integration for input/output management
+- Parallel processing capabilities with session management
 
 ## Installation
 
 ```bash
 # Clone the repository
-git clone https://github.com/godziklab/tplrr-analysis.git
-cd tplrr-analysis
+git clone https://github.com/your-username/TpLRR-Pattern-Finder.git
+cd TpLRR-Pattern-Finder
 
-# Create and activate a conda environment (recommended)
-conda create -n tplrr python=3.9
-conda activate tplrr
+# Create a conda environment (recommended)
+conda create -n lrr_finder python=3.9
+conda activate lrr_finder
 
 # Install dependencies
 pip install -r requirements.txt
@@ -42,67 +39,59 @@ pip install -r requirements.txt
 
 ## Usage
 
-### Structural Analysis
-
-To perform structural analysis on the TpLRR class LRR proteins:
+### 1. Download UniRef50 Database
 
 ```bash
-python structural_analysis/analyze_structures.py --pdb_list pdb_files.txt
+# Run the download script
+./scripts/download_uniref50.sh
 ```
 
-### Sequence Pattern Analysis
-
-To identify proteins using the TpLRR class signature pattern:
+### 2. Run Analysis for Specific LRR Patterns
 
 ```bash
-python sequence_analysis/pattern_search.py --database uniref50.fasta --pattern "C/NxxLxxIxLxxxLxxIgxxAFxx"
+# Analyze TpLRR patterns
+python src/tplrr_finder.py uniref50_lrr uniref50.fasta.gz
+
+# Or use the run_analysis script to run multiple patterns
+./scripts/run_analysis.sh
 ```
 
-### Domain Distribution Statistics
-
-To calculate domain distribution statistics for TpLRR proteins:
+### 3. Managing Sessions
 
 ```bash
-python domain_analysis/domain_stats.py --input tplrr_hits.txt --num 1000
+# Create a new session
+./scripts/tmux_management.sh create lrr_analysis
+
+# List active sessions
+./scripts/tmux_management.sh list
+
+# Attach to a session
+./scripts/tmux_management.sh attach lrr_analysis
+
+# Kill a session
+./scripts/tmux_management.sh kill lrr_analysis
 ```
 
-## Key Features Studied
+## LRR Patterns
 
-1. Novel structural features of TpLRR/BspA-like LRRs
-2. The flipped curvature of the beta sheet to the convex side
-3. Lack of helices on the opposite side of the beta sheet
-4. Conservation patterns specific to TpLRR proteins
-5. Domain architecture of TpLRR proteins (LRR domains, Ig-like domains, dockerin domains)
-6. Distribution and prevalence in bacterial and protozoan pathogens
+The repository includes regular expression patterns for various LRR classes:
 
-## Data Sources
-
-- PDB structures: 4FS7, 4FDW, 4FD0, 4OJU, 4GT6, 4CP6, and 6MLX
-- UniRef50 database for sequence analysis
-- InterPro database for domain structure information
-- NCBI RefSeq and UniProtKB for homolog identification
+- TpLRR: `(?:C|N).{2}L.{2}I.{1}L.{3}L.{2}I.{3}AF`
+- RI-like: `.{3}L.{2}L.{1}L.{2}[NC].{1}L.{3}G[GAIVLMFPWC].{2}L.{2}[GAIVLMFPWC]L.{2}`
+- SDS22-like: `L.{2}L.{2}L.{1}L.{2}N.{1}I.{2}I.{2}L.{2}`
+- And more (see `data/patterns.json`)
 
 ## Citation
 
-If you use this code or data in your research, please cite:
+If you use this code in your research, please cite:
 
 ```
 Takkouche, A., Qiu, X., Sedova, M., Jaroszewski, L., & Godzik, A. (2023). 
 Unusual structural and functional features of TpLRR/BspA-like LRR proteins. 
-Journal of Structural Biology, 215, 108011. 
+Journal of Structural Biology, 215, 108011.
 https://doi.org/10.1016/j.jsb.2023.108011
 ```
 
 ## License
 
-This code is provided under the [MIT License](LICENSE).
-
-## Contact
-
-For questions or issues, please contact:
-- Adam Godzik (adam.godzik@medsch.ucr.edu)
-- Lukasz Jaroszewski (lukasz.jaroszewski@medsch.ucr.edu)
-
-## Acknowledgments
-
-This work was funded by the NIAID contract NIH NIAID contract #75N93022C00035 to the Center for Structural Biology of Infectious Diseases (CSBID) and by the Bruce D. and Nancy B. Varner Endowment Fund.
+This project is licensed under the MIT License - see the LICENSE file for details.
