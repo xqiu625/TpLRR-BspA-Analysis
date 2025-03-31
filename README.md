@@ -1,4 +1,4 @@
-# TpLRR-Pattern-Finder
+# TpLRR-BspA-Analysis
 
 A computational toolkit for identifying and analyzing different classes of leucine-rich repeat (LRR) proteins in the UniRef50 database, with a focus on the TpLRR/BspA-like class.
 
